@@ -1,71 +1,10 @@
 <!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Scenario</title>
+<html>
+  <head>    
+    <link rel="stylesheet" href="css/style.css">
+    <title>Cube</title>
   </head>
   <body>
-    <style>
-      body {
-        width: 100vw;
-        height: 100vh;
-        margin: 0;
-        overflow: hidden;
-      }
-    </style>    
-    
-    <script type="module">
-      import * as THREE from "./js/three.module.js";
-      import { OrbitControls } from "./js/OrbitControls.js";
-      /*import * as THREEx from "./threex.domevents.js";*/
-      //Creamos la escena
-      const scene = new THREE.Scene();
-      scene.background = new THREE.Color(0x161616);
-
-      //Agregamos la camara
-      const camera = new THREE.PerspectiveCamera(
-        55,
-        window.innerWidth/window.innerHeight,
-        45,
-        30000
-      );
-      camera.position.set(-900,-200,-900);
-
-      //Cargamos el render
-      const renderer = new THREE.WebGLRenderer();
-      renderer.setSize(window.innerWidth, window.innerHeight);
-      document.body.appendChild(renderer.domElement);
-
-      //Controles de Orbita y max-min distancia de la camara
-      const controls = new OrbitControls(camera, renderer.domElement);
-      controls.addEventListener('change', renderer);
-      //controls.minDistance = 500;
-      //controls.maxDistance = 1500;
-
-      //--------------- seccion de edicion ---------------//
-      //Cargamos las texturas que va a tener el cubo
-      const imagePrefix = "img/iglesia_";
-			const directions  = ["ft", "bk", "up", "dn", "rt", "lf"];
-			const imageSuffix = ".jpg";
-			const materialArray = [];
-			for (var i = 0; i < 6; i++)
-			  materialArray.push( new THREE.MeshBasicMaterial({
-				map: THREE.ImageUtils.loadTexture( imagePrefix + directions[i] + imageSuffix ),
-				side: THREE.BackSide
-			}));
-			const skyMaterial = new THREE.MeshFaceMaterial( materialArray );
-      const skyboxGeo = new THREE.BoxGeometry( 10000, 10000, 10000);
-      const skybox = new THREE.Mesh( skyboxGeo, skyMaterial );
-      scene.add( skybox );
-
-      //Mandamos a la escena el cubo
-      const animate =  () => {
-        requestAnimationFrame(animate);      
-        //skybox.rotation.y += 0.01;
-        renderer.render(scene, camera);
-      }
-      animate();
-    </script>
+    <script type="module" src="./js/main.js"></script>
   </body>
 </html>
